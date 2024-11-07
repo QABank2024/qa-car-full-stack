@@ -1,2 +1,2 @@
-export const SERVER_URL = 'http://127.0.0.1:8000/'
-// export const SERVER_URL = 'http://52.211.168.107:8000/'
+// Use the same host for API calls
+export const SERVER_URL = window.location.protocol + '//' + window.location.hostname + ':8000/'

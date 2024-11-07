@@ -46,17 +46,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	
 	// Needed as our React app runs on a different port and is therefore a different "origin"
-	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Arrays.asList("*"));
-		config.setAllowedMethods(Arrays.asList("*"));
-		config.setAllowedHeaders(Arrays.asList("*"));
-		config.setAllowCredentials(true);
-		config.applyPermitDefaultValues();
-		source.registerCorsConfiguration("/**", config);
-	return source;
-	}
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+
+        // Allow all origins for development - you can restrict this in production
+        config.setAllowedOrigins(Arrays.asList("http://35.210.235.19", "http://localhost:80", "http://localhost:3000"));
+
+        // Allow all HTTP methods
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // Allow all headers
+        config.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+
+        // Allow credentials
+        config.setAllowCredentials(true);
+
+        // Expose the Authorization header
+        config.setExposedHeaders(Arrays.asList("Authorization"));
+
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 	
 }
